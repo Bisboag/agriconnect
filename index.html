@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌱AgriConnect GH - Connecting Farmers & Buyers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        .hero-bg {
+            background: linear-gradient(135deg, #065f46 0%, #10b981 100%);
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i data-lucide="sprout" class="h-8 w-8 text-green-600 mr-2"></i>
+                        <span class="text-xl font-bold text-gray-900">🌱AgriConnect GH</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="farming-tips.html" class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium">Farming Tips</a>
+                    <a href="weather.html" class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium">Weather</a>
+                    <button id="loginBtn" class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium">Login</button>
+                    <button id="registerBtn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium">Register</button>
+                    <div id="userMenu" class="hidden flex items-center space-x-4">
+                        <span id="welcomeUser" class="text-gray-700"></span>
+                        <button id="logoutBtn" class="text-red-600 hover:text-red-700 px-3 py-2 rounded-md text-sm font-medium">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div id="mainContent">
+        <!-- Hero Section -->
+        <section class="hero-bg text-white py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">Connecting Ghana's Agricultural Community</h1>
+                <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Empowering farmers, connecting buyers, and sharing knowledge for a thriving agricultural sector</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="marketplace.html" class="bg-white text-green-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300 text-center">Explore Marketplace</a>
+                    <a href="farming-tips.html" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-600 transition duration-300 text-center">Get Farming Tips</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Why Choose AgriConnect?</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="text-center card-hover bg-gray-50 p-6 rounded-lg">
+                        <i data-lucide="users" class="h-12 w-12 text-green-600 mx-auto mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Connect Directly</h3>
+                        <p class="text-gray-600">Link farmers directly with buyers, eliminating middlemen and increasing profits</p>
+                    </div>
+                    <div class="text-center card-hover bg-gray-50 p-6 rounded-lg">
+                        <i data-lucide="book-open" class="h-12 w-12 text-green-600 mx-auto mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Expert Tips</h3>
+                        <p class="text-gray-600">Access curated farming tips and best practices from agricultural experts</p>
+                    </div>
+                    <div class="text-center card-hover bg-gray-50 p-6 rounded-lg">
+                        <i data-lucide="package" class="h-12 w-12 text-green-600 mx-auto mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Market Access</h3>
+                        <p class="text-gray-600">Find buyers for your products or source fresh produce directly from farmers</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Authentication Modal -->
+    <div id="authModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg max-w-md w-full p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="authTitle" class="text-2xl font-bold text-gray-900">Login</h2>
+                <button id="closeAuthModal" class="text-gray-400 hover:text-gray-600">
+                    <i data-lucide="x" class="h-6 w-6"></i>
+                </button>
+            </div>
+            <form id="authForm">
+                <div class="space-y-4">
+                    <div id="nameField" class="hidden">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                        <input type="text" id="fullName" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                    </div>
+                    <div id="userTypeField" class="hidden">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">User Type</label>
+                        <select id="userType" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                            <option value="farmer">Farmer</option>
+                            <option value="buyer">Buyer</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" id="email" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                        <input type="password" id="password" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                    </div>
+                </div>
+                <button type="submit" class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition duration-300 mt-6">
+                    <span id="authSubmitText">Login</span>
+                </button>
+            </form>
+            <div class="mt-4 text-center">
+                <button id="switchAuthMode" class="text-green-600 hover:text-green-700 text-sm">
+                    <span id="switchAuthText">Don't have an account? Register</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i data-lucide="sprout" class="h-8 w-8 text-green-400 mr-2"></i>
+                        <span class="text-xl font-bold">AgriConnect GH</span>
+                    </div>
+                    <p class="text-gray-300">Empowering Ghana's agricultural community through technology and connection.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="marketplace.html" class="hover:text-green-400">Marketplace</a></li>
+                        <li><a href="farming-tips.html" class="hover:text-green-400">Farming Tips</a></li>
+                        <li><a href="weather.html" class="hover:text-green-400">Weather</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Support</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" class="hover:text-green-400">Help Center</a></li>
+                        <li><a href="#" class="hover:text-green-400">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-green-400">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Project Reflection</h3>
+                    <p class="text-gray-300 text-sm">This platform addresses the critical gap between farmers and buyers in Ghana, providing direct market access and agricultural knowledge sharing to improve food security and farmer livelihoods.</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2024 AgriConnect GH. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Application State
+        let currentUser = null;
+
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Initialize application
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+        });
+
+        function initializeApp() {
+            // Check for existing user session
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                updateUIForLoggedInUser();
+            }
+
+            // Event listeners
+            document.getElementById('loginBtn').addEventListener('click', () => showAuthModal('login'));
+            document.getElementById('registerBtn').addEventListener('click', () => showAuthModal('register'));
+            document.getElementById('logoutBtn').addEventListener('click', logout);
+            document.getElementById('closeAuthModal').addEventListener('click', hideAuthModal);
+            document.getElementById('switchAuthMode').addEventListener('click', switchAuthMode);
+            document.getElementById('authForm').addEventListener('submit', handleAuth);
+        }
+
+        // Authentication Functions
+        function showAuthModal(mode) {
+            const modal = document.getElementById('authModal');
+            const title = document.getElementById('authTitle');
+            const submitText = document.getElementById('authSubmitText');
+            const switchText = document.getElementById('switchAuthText');
+            const nameField = document.getElementById('nameField');
+            const userTypeField = document.getElementById('userTypeField');
+
+            if (mode === 'login') {
+                title.textContent = 'Login';
+                submitText.textContent = 'Login';
+                switchText.textContent = "Don't have an account? Register";
+                nameField.classList.add('hidden');
+                userTypeField.classList.add('hidden');
+            } else {
+                title.textContent = 'Register';
+                submitText.textContent = 'Register';
+                switchText.textContent = 'Already have an account? Login';
+                nameField.classList.remove('hidden');
+                userTypeField.classList.remove('hidden');
+            }
+
+            modal.classList.remove('hidden');
+            modal.dataset.mode = mode;
+        }
+
+        function hideAuthModal() {
+            document.getElementById('authModal').classList.add('hidden');
+            document.getElementById('authForm').reset();
+        }
+
+        function switchAuthMode() {
+            const modal = document.getElementById('authModal');
+            const currentMode = modal.dataset.mode;
+            showAuthModal(currentMode === 'login' ? 'register' : 'login');
+        }
+
+        function handleAuth(e) {
+            e.preventDefault();
+            const modal = document.getElementById('authModal');
+            const mode = modal.dataset.mode;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (mode === 'register') {
+                const fullName = document.getElementById('fullName').value;
+                const userType = document.getElementById('userType').value;
+                
+                // Simulate user registration
+                currentUser = {
+                    id: Date.now(),
+                    email,
+                    fullName,
+                    userType,
+                    registeredAt: new Date().toISOString()
+                };
+                
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                showNotification('Registration successful! Welcome to AgriConnect Kenya.', 'success');
+            } else {
+                // Simulate login (in real app, verify credentials)
+                currentUser = {
+                    id: Date.now(),
+                    email,
+                    fullName: 'Demo User',
+                    userType: 'farmer',
+                    registeredAt: new Date().toISOString()
+                };
+                
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                showNotification('Login successful! Welcome back.', 'success');
+            }
+
+            updateUIForLoggedInUser();
+            hideAuthModal();
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            updateUIForLoggedOutUser();
+            showNotification('Logged out successfully.', 'info');
+        }
+
+        function updateUIForLoggedInUser() {
+            document.getElementById('loginBtn').classList.add('hidden');
+            document.getElementById('registerBtn').classList.add('hidden');
+            document.getElementById('userMenu').classList.remove('hidden');
+            document.getElementById('welcomeUser').textContent = `Welcome, ${currentUser.fullName}`;
+        }
+
+        function updateUIForLoggedOutUser() {
+            document.getElementById('loginBtn').classList.remove('hidden');
+            document.getElementById('registerBtn').classList.remove('hidden');
+            document.getElementById('userMenu').classList.add('hidden');
+        }
+
+        // Utility Functions
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg max-w-sm fade-in ${
+                type === 'success' ? 'bg-green-500 text-white' :
+                type === 'error' ? 'bg-red-500 text-white' :
+                type === 'warning' ? 'bg-yellow-500 text-black' :
+                'bg-blue-500 text-white'
+            }`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

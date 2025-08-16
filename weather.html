@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌱AgriConnect GH - Weather Information</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        .hero-bg {
+            background: linear-gradient(135deg, #065f46 0%, #10b981 100%);
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i data-lucide="sprout" class="h-8 w-8 text-green-600 mr-2"></i>
+                        <span class="text-xl font-bold text-gray-900">🌱AgriConnect GH</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                    <a href="farming-tips.html" class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium">Farming Tips</a>
+                    <button id="loginBtn" class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium">Login</button>
+                    <button id="registerBtn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium">Register</button>
+                    <div id="userMenu" class="hidden flex items-center space-x-4">
+                        <span id="welcomeUser" class="text-gray-700"></span>
+                        <button id="logoutBtn" class="text-red-600 hover:text-red-700 px-3 py-2 rounded-md text-sm font-medium">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Weather Section -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Weather Information</h1>
+            <a href="index.html" class="text-green-600 hover:text-green-700 text-sm font-medium">
+                <i data-lucide="arrow-left" class="h-4 w-4 inline mr-1"></i> Back to Home
+            </a>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <div class="section weather">
+                <h2 class="text-xl font-semibold mb-4 flex items-center">
+                    <i data-lucide="cloud-sun" class="h-6 w-6 text-green-600 mr-2"></i>
+                    Weather Forecast
+                </h2>
+                <select id="city" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 mb-4">
+                    <option value="Accra">Accra</option>
+                    <option value="Kumasi">Kumasi</option>
+                    <option value="Tamale">Tamale</option>
+                    <option value="Takoradi">Takoradi</option>
+                    <option value="Koforidua">Koforidua</option>
+                </select>
+                <div id="weather" class="p-4 bg-gray-50 rounded-lg">
+                    <p class="text-center text-gray-500">Select a city to view weather information</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-semibold mb-4 flex items-center">
+                <i data-lucide="calendar" class="h-6 w-6 text-green-600 mr-2"></i>
+                Seasonal Farming Calendar
+            </h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="p-4 border border-gray-200 rounded-lg">
+                    <h3 class="font-medium text-lg mb-2">Major Crops Planting Seasons</h3>
+                    <ul class="space-y-2">
+                        <li><span class="font-medium">Maize:</span> March - May (Major), August - September (Minor)</li>
+                        <li><span class="font-medium">Rice:</span> April - June (Major), September - October (Minor)</li>
+                        <li><span class="font-medium">Yam:</span> February - April</li>
+                        <li><span class="font-medium">Cassava:</span> April - June</li>
+                        <li><span class="font-medium">Cocoa:</span> April - June (Main), October - November (Minor)</li>
+                    </ul>
+                </div>
+                <div class="p-4 border border-gray-200 rounded-lg">
+                    <h3 class="font-medium text-lg mb-2">Rainfall Patterns</h3>
+                    <ul class="space-y-2">
+                        <li><span class="font-medium">Southern Ghana:</span> Bimodal - April-June and September-November</li>
+                        <li><span class="font-medium">Northern Ghana:</span> Unimodal - May-September</li>
+                        <li><span class="font-medium">Transition Zone:</span> Variable patterns</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i data-lucide="sprout" class="h-8 w-8 text-green-400 mr-2"></i>
+                        <span class="text-xl font-bold">AgriConnect GH</span>
+                    </div>
+                    <p class="text-gray-300">Empowering Ghana's agricultural community through technology and connection.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="index.html" class="hover:text-green-400">Home</a></li>
+                        <li><a href="marketplace.html" class="hover:text-green-400">Marketplace</a></li>
+                        <li><a href="farming-tips.html" class="hover:text-green-400">Farming Tips</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Support</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" class="hover:text-green-400">Help Center</a></li>
+                        <li><a href="#" class="hover:text-green-400">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-green-400">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Project Reflection</h3>
+                    <p class="text-gray-300 text-sm">This platform addresses the critical gap between farmers and buyers in Ghana, providing direct market access and agricultural knowledge sharing to improve food security and farmer livelihoods.</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2024 AgriConnect GH. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Weather API functionality
+        const apiKey = "fcff33dbe1434129f8badd030f070550"; // Replace with your OpenWeatherMap API key
+        const citySelect = document.getElementById("city");
+        const weatherBox = document.getElementById("weather");
+
+        function loadWeather(city) {
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city},GH&units=metric&appid=${apiKey}`;
+            
+            // Show loading state
+            weatherBox.innerHTML = `
+                <div class="flex justify-center items-center py-4">
+                    <i data-lucide="loader-2" class="h-6 w-6 text-green-600 animate-spin mr-2"></i>
+                    <span>Loading weather data...</span>
+                </div>
+            `;
+            lucide.createIcons();
+            
+            fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.cod === 200) {
+                        weatherBox.innerHTML = `
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <p class="text-xl font-semibold">${city}</p>
+                                    <p class="text-gray-600">${new Date().toLocaleDateString()}</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-3xl font-bold">${Math.round(data.main.temp)}°C</p>
+                                    <p class="text-gray-600 capitalize">${data.weather[0].description}</p>
+                                </div>
+                                <div class="col-span-2 grid grid-cols-3 gap-2 mt-4 text-center">
+                                    <div class="p-2 bg-gray-100 rounded">
+                                        <i data-lucide="droplet" class="h-5 w-5 text-blue-500 mx-auto mb-1"></i>
+                                        <p>${data.main.humidity}%</p>
+                                        <p class="text-xs text-gray-500">Humidity</p>
+                                    </div>
+                                    <div class="p-2 bg-gray-100 rounded">
+                                        <i data-lucide="wind" class="h-5 w-5 text-gray-500 mx-auto mb-1"></i>
+                                        <p>${data.wind.speed} m/s</p>
+                                        <p class="text-xs text-gray-500">Wind</p>
+                                    </div>
+                                    <div class="p-2 bg-gray-100 rounded">
+                                        <i data-lucide="gauge" class="h-5 w-5 text-green-500 mx-auto mb-1"></i>
+                                        <p>${data.main.pressure} hPa</p>
+                                        <p class="text-xs text-gray-500">Pressure</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        weatherBox.innerHTML = `
+                            <p class="text-red-500">Could not load weather data for ${city}.</p>
+                            <p class="text-sm text-gray-500">Please try again later.</p>
+                        `;
+                    }
+                    lucide.createIcons();
+                })
+                .catch(() => {
+                    weatherBox.innerHTML = `
+                        <p class="text-red-500">Error loading weather data.</p>
+                        <p class="text-sm text-gray-500">Please check your internet connection.</p>
+                    `;
+                });
+        }
+
+        // Load weather when city changes
+        citySelect.addEventListener("change", () => loadWeather(citySelect.value));
+        
+        // Load default weather on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadWeather(citySelect.value);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌱AgriConnect GH - Farming Tips</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        .hero-bg {
+            background: linear-gradient(135deg, #065f46 0%, #10b981 100%);
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i data-lucide="sprout" class="h-8 w-8 text-green-600 mr-2"></i>
+                        <span class="text-xl font-bold text-gray-900">🌱AgriConnect GH</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                    <a href="weather.html" class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium">Weather</a>
+                    <button id="loginBtn" class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium">Login</button>
+                    <button id="registerBtn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium">Register</button>
+                    <div id="userMenu" class="hidden flex items-center space-x-4">
+                        <span id="welcomeUser" class="text-gray-700"></span>
+                        <button id="logoutBtn" class="text-red-600 hover:text-red-700 px-3 py-2 rounded-md text-sm font-medium">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Tips Section -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Agricultural Tips & Best Practices</h1>
+            <a href="index.html" class="text-green-600 hover:text-green-700 text-sm font-medium">
+                <i data-lucide="arrow-left" class="h-4 w-4 inline mr-1"></i> Back to Home
+            </a>
+        </div>
+
+        <!-- Tips Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="tipsGrid">
+            <!-- Tips will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i data-lucide="sprout" class="h-8 w-8 text-green-400 mr-2"></i>
+                        <span class="text-xl font-bold">AgriConnect GH</span>
+                    </div>
+                    <p class="text-gray-300">Empowering Ghana's agricultural community through technology and connection.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="index.html" class="hover:text-green-400">Home</a></li>
+                        <li><a href="marketplace.html" class="hover:text-green-400">Marketplace</a></li>
+                        <li><a href="weather.html" class="hover:text-green-400">Weather</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Support</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" class="hover:text-green-400">Help Center</a></li>
+                        <li><a href="#" class="hover:text-green-400">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-green-400">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Project Reflection</h3>
+                    <p class="text-gray-300 text-sm">This platform addresses the critical gap between farmers and buyers in Ghana, providing direct market access and agricultural knowledge sharing to improve food security and farmer livelihoods.</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2024 AgriConnect GH. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Sample tips data
+        const tips = [
+            {
+                id: 1,
+                title: 'Soil Testing for Better Yields',
+                description: 'Regular soil testing helps determine nutrient levels and pH, enabling farmers to make informed decisions about fertilizer application and crop selection.',
+                category: 'Soil Management',
+                icon: 'flask',
+                readTime: 5
+            },
+            {
+                id: 2,
+                title: 'Water Conservation Techniques',
+                description: 'Implement drip irrigation and mulching to reduce water usage by up to 50% while maintaining crop health and productivity.',
+                category: 'Water Management',
+                icon: 'droplets',
+                readTime: 7
+            },
+            {
+                id: 3,
+                title: 'Integrated Pest Management',
+                description: 'Combine biological, cultural, and chemical methods to control pests effectively while minimizing environmental impact.',
+                category: 'Pest Control',
+                icon: 'bug',
+                readTime: 6
+            },
+            {
+                id: 4,
+                title: 'Crop Rotation Benefits',
+                description: 'Rotating crops helps break pest cycles, improve soil fertility, and reduce the need for chemical inputs.',
+                category: 'Crop Management',
+                icon: 'refresh-cw',
+                readTime: 4
+            },
+            {
+                id: 5,
+                title: 'Post-Harvest Handling',
+                description: 'Proper post-harvest techniques can reduce losses by up to 30% and maintain product quality for better market prices.',
+                category: 'Post-Harvest',
+                icon: 'package',
+                readTime: 8
+            },
+            {
+                id: 6,
+                title: 'Climate-Smart Agriculture',
+                description: 'Adapt farming practices to climate change through drought-resistant varieties and sustainable farming methods.',
+                category: 'Climate Adaptation',
+                icon: 'cloud-sun',
+                readTime: 10
+            }
+        ];
+
+        // Render tips on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            renderTips();
+        });
+
+        function renderTips() {
+            const grid = document.getElementById('tipsGrid');
+            
+            grid.innerHTML = tips.map(tip => `
+                <div class="bg-white rounded-lg shadow-md p-6 card-hover fade-in">
+                    <div class="flex items-center mb-4">
+                        <i data-lucide="${tip.icon}" class="h-8 w-8 text-green-600 mr-3"></i>
+                        <h3 class="text-xl font-semibold text-gray-900">${tip.title}</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">${tip.description}</p>
+                    <div class="flex justify-between items-center text-sm text-gray-500">
+                        <span>Category: ${tip.category}</span>
+                        <span>${tip.readTime} min read</span>
+                    </div>
+                </div>
+            `).join('');
+
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>
